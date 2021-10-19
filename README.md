@@ -20,7 +20,7 @@
 ## GCC(Windows)でのビルドの手順
 
 - MinGW-w64をインストールします
-  - https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Per[…]0Builds/mingw-builds/installer/mingw-w64-install.exe/download
+  - https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
   - Settingsは以下のようにします
     - Version: 8.1.0
     - Architecture: i686
