@@ -28,10 +28,8 @@
     - Exception: dwarf
     - Build revision: 0
   - 以下にパスを通します
-    - C:\Program Files
-      (x86)\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin
-    - C:\Program Files
-      (x86)\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\x86_64-w64-mingw32\bin
+    - C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin
+    - C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\i686-w64-mingw32\bin
 - コンパイルします
   - g++ -std=c++17 client_a1.cpp kakomimasu.cpp -lcurl
 
