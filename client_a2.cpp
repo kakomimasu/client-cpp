@@ -1,8 +1,8 @@
 #include "kakomimasu.h"
 
-int main()
-{
-    KakomimasuClient kc;
+int main() {
+    // 自分のbearerTokenを書く
+    KakomimasuClient kc("");
     kc.waitMatching();
     kc.getGameInfo();
 
@@ -14,35 +14,27 @@ int main()
 
     // ポイントの高い順ソート
     vector<tuple<int, int, int>> pntall;
-    for (int i = 0; i < h; i++)
-    {
-        for (int j = 0; j < w; j++)
-        {
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
             pntall.emplace_back(points[i][j], j, i);
         }
     }
     sort(pntall.rbegin(), pntall.rend());
 
     // ↓ここからがAIの中身↓
-    while (kc.getGameInfo())
-    {
+    while (kc.getGameInfo()) {
         // ランダムにずらしつつ置けるだけおく
         // 置いたものはランダムに8方向に動かす
         // 画面外にはでない判定を追加（a1 → a2)
         vector<Action> action;
         const int offset = rnd(nagents);
-        for (int i = 0; i < nagents; i++)
-        {
+        for (int i = 0; i < nagents; i++) {
             const Agent agent = kc.getAgent()[i];
-            if (agent.x == -1)
-            {
+            if (agent.x == -1) {
                 const auto [point, x, y] = pntall[i + offset];
                 action.push_back({i, "PUT", x, y});
-            }
-            else
-            {
-                while (true)
-                {
+            } else {
+                while (true) {
                     const auto [dx, dy] = DIR[rnd(8)];
                     const int x = agent.x + dx;
                     const int y = agent.y + dy;
