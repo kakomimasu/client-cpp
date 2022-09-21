@@ -11,7 +11,7 @@ const int DIR[8][2] = {
     {1, 1},
 };
 
-string host = "https://kakomimasu.website/api";
+string host = "https://kakomimasu.com/api";
 void setHost(string s) {
     host = s;
 }
