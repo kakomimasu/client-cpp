@@ -42,7 +42,7 @@ string curlPost(string req, string post_data, string auth = "")
     const int sz = 102400;
     char buf[sz];
     char cmdline[sz];
-#ifdef _WIN64
+#if defined(_WIN64) || defined(_WIN32)
     for (int i = 0; i < post_data.size(); ++i)
     {
         if (post_data[i] == '"')
