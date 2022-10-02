@@ -1,4 +1,4 @@
-#include "kakomimasu.h"
+﻿#include "kakomimasu.h"
 
 const int DIR[8][2] = {
     {-1, -1},
@@ -21,8 +21,8 @@ string curlGet(string req, string token = "")
 {
     cout << "GET " << req << endl;
     const int sz = 102400;
-    char buf[sz];
-    char cmdline[sz];
+    char *buf = new char[sz];
+    char *cmdline= new char[sz];
     snprintf(cmdline, sz, "curl -s -H 'Authorization: %s' %s%s", token.c_str(), host.c_str(), req.c_str());
 #ifdef _MSC_VER
     FILE *fp = _popen(cmdline, "r");
@@ -30,8 +30,18 @@ string curlGet(string req, string token = "")
     FILE *fp = popen(cmdline, "r");
 #endif
     fgets(buf, sz, fp);
+
+#ifdef _MSC_VER
+	_pclose(fp);
+#else
+	pclose(fp);
+#endif
+
     string res(buf);
     // cout << res << endl;
+
+    delete[] buf;
+    delete[] cmdline;
     return res;
 }
 
@@ -40,8 +50,8 @@ string curlPost(string req, string post_data, string auth = "")
     cout << "POST " << req << endl;
     // cout << post_data << endl;
     const int sz = 102400;
-    char buf[sz];
-    char cmdline[sz];
+    char *buf= new char[sz];
+    char *cmdline = new char[sz];
 #if defined(_WIN64) || defined(_WIN32)
     for (int i = 0; i < post_data.size(); ++i)
     {
@@ -63,8 +73,16 @@ string curlPost(string req, string post_data, string auth = "")
 #endif
 
     fgets(buf, sz, fp);
+
+#ifdef _MSC_VER
+    _pclose(fp);
+#else
+    pclose(fp);
+#endif
     string res(buf);
     // cout << res << endl;
+    delete[] buf;
+    delete[] cmdline;
     return res;
 }
 
@@ -85,7 +103,7 @@ void KakomimasuClient::setBearerToken(string bearer)
     m_bearer = bearer;
 }
 
-void KakomimasuClient::setAi(string ai_name, string ai_board = "")
+void KakomimasuClient::setAi(string ai_name, string ai_board)
 {
     m_ai_name = ai_name;
     m_ai_board = ai_board;
@@ -150,7 +168,7 @@ void KakomimasuClient::waitMatching()
     picojson::object obj = val.get<picojson::object>();
 
     m_game_id = obj["gameId"].get<string>();
-    m_player_no = obj["index"].get<double>();
+    m_player_no = (int)obj["index"].get<double>();
     m_pic = obj["pic"].get<string>();
 
     cout << "gameId: " << m_game_id << endl;
@@ -213,7 +231,7 @@ vector<vector<int>> KakomimasuClient::getPoints()
     int i = 0, j = 0;
     for (auto &val : ary)
     {
-        res[i][j] = val.get<double>();
+        res[i][j] = (int)val.get<double>();
 
         j++;
         if (j == width)
@@ -232,7 +250,7 @@ vector<vector<Tile>> KakomimasuClient::getFiled()
     int i = 0, j = 0;
     for (auto &val : ary)
     {
-        res[i][j].point = val.get<double>();
+        res[i][j].point = (int)val.get<double>();
 
         j++;
         if (j == width)

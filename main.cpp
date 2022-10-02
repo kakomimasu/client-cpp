@@ -1,4 +1,4 @@
-#include "kakomimasu.h"
+﻿#include "kakomimasu.h"
 
 int main()
 {
@@ -62,7 +62,6 @@ int main()
             }
         }
         kc.setAction(action);
-        // break;
         kc.waitNextTurn();
     }
 

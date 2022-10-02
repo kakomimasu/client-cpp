@@ -37,7 +37,7 @@ class KakomimasuClient
 public:
   KakomimasuClient();
   void setBearerToken(string bearer);
-  void setAi(string ai_name, string ai_board);
+  void setAi(string ai_name, string ai_board = "");
   void setGuestName(string guest_name);
   bool getGameInfo();
   void waitMatching();
